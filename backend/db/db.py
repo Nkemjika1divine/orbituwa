@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """The Database Module"""
 from dotenv import load_dotenv
-from sqlalchemy.orm import declarative_base
+from models.basemodel import Base
 from models.user import User
 from os import environ
 from sqlalchemy import create_engine
@@ -9,8 +9,6 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from typing import Dict, TypeVar, List
 
 load_dotenv()
-
-Base = declarative_base()
 
 
 classes = {
@@ -28,17 +26,17 @@ class DB:
 
     def __init__(self) -> None:
         """Initializing the Database"""
-        PLACERS_DB = environ.get("PLACERS_DB")
-        PLACERS_PORT = environ.get("PLACERS_PORT")
-        PLACERS_USER = environ.get("PLACERS_USER")
-        PLACERS_PWD = environ.get("PLACERS_PWD")
-        PLACERS_HOST = environ.get("PLACERS_HOST")
+        PLACERS_DB = environ.get("ORBITUWA_DB")
+        PLACERS_PORT = environ.get("ORBITUWA_PORT")
+        PLACERS_USER = environ.get("ORBITUWA_USER")
+        PLACERS_PWD = environ.get("ORBITUWA_PWD")
+        PLACERS_HOST = environ.get("ORBITUWA_HOST")
 
         if not all([PLACERS_DB, PLACERS_PORT, PLACERS_USER, PLACERS_PWD, PLACERS_HOST]):
             raise ValueError("One or more environment variables are missing")
 
         self.__engine = create_engine(
-            "mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
+            "mysql+pymysql://{}:{}@{}:{}/{}".format(
                 PLACERS_USER, PLACERS_PWD, PLACERS_HOST, PLACERS_PORT, PLACERS_DB
             )
         )
@@ -50,7 +48,7 @@ class DB:
 
     def update(self, classname: str, obj_id: str, **kwargs: Dict[str, str]) -> None:
         """Updates an object based on parameters passed"""
-        from models import storage
+        from reload import storage
 
         all_data = storage.all(classname)
         for value in all_data.values():
@@ -104,7 +102,7 @@ class DB:
 
     def count(self, cls=None) -> int:
         """count the number of objects in storage"""
-        from models import storage
+        from db.reload import storage
 
         if not cls:
             count = 0
@@ -120,7 +118,7 @@ class DB:
         self, classname: str = None, key: str = None, value: str = None
     ) -> List[TypeVar("BaseModel")]:
         """Search the database for a value based on the key"""
-        from models import storage
+        from reload import storage
 
         if not key or not value:
             return []
@@ -137,7 +135,7 @@ class DB:
 
     def get_user(self, user_id: str = None) -> TypeVar("User"):
         """Gets a user based on an attribute"""
-        from models import storage
+        from reload import storage
 
         if not user_id:
             return None

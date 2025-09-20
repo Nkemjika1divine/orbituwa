@@ -5,8 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "aiosmtplib>=4.0.2",
+    "bcrypt>=4.3.0",
+    "cryptography>=45.0.7",
     "dotenv>=0.9.9",
     "fastapi>=0.116.1",
+    "mysql-connector-python>=9.4.0",
     "pydantic[email]>=2.11.7",
     "pymysql>=1.1.2",
     "sqlalchemy>=2.0.43",

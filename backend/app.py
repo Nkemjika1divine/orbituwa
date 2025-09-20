@@ -13,15 +13,15 @@ app = FastAPI()
 app.include_router(user_router)
 
 
-@app.get("/")
-async def home():
-    return "API connection Successful. Welcome to Orbituwa"
-
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8000"],  # URLs to allow
+    allow_origins=["http://localhost:8000", "http://127.0.0.1:8000"],  # URLs to allow
     allow_credentials=True,
     allow_methods=["*"],  # GET, POST, PUT, DELETE all allowed
     allow_headers=["*"],  # All headers allowed
 )
+
+
+@app.get("/")
+async def home():
+    return "API connection Successful. Welcome to Orbituwa"
