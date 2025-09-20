@@ -7,6 +7,7 @@ class UserExpected(BaseModel):
     email: EmailStr
     password: str
     handle: str
+    phone_number: str = None
 
 
 class UserResponse(BaseModel):

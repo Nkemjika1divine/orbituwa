@@ -18,6 +18,7 @@ class User(BaseModel, Base):
     name = Column(String(50), nullable=False)
     handle = Column(String(20), nullable=False, unique=True)
     email = Column(String(50), nullable=False, unique=True)
+    phone_number = Column(String(50))
     password = Column(String(250), nullable=False)
     role = Column(String(20), nullable=False, default="user")
     role_updater = Column(

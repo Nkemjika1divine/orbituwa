@@ -36,8 +36,13 @@ async def register(background_tasks: BackgroundTasks, user_input: UserExpected):
         email=user_input.email,
         password=user_input.password,
         role=role,
+        phone_number=user_input.phone_number,
     )
     storage.new(user)
     storage.save()
     background_tasks.add_task(send_welcome_email, user_input.email, user_input.name)
     return JSONResponse(content=user.to_safe_dict(), status_code=HTTP_201_CREATED)
+
+
+@user_router.post("/login", response_model=UserResponse)
+async def login(): ...
