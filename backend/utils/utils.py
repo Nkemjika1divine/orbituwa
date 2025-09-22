@@ -47,3 +47,15 @@ def get_user_by_handle(handle: str):
             if user.handle == handle:
                 return user
     return None
+
+
+def get_place_by_email(email: str):
+    """Gets a place by their email"""
+    from db.reload import storage
+
+    places = storage.all("Place")
+    if places:
+        for place in places.values():
+            if place.email == email:
+                return place
+    return None

@@ -13,7 +13,7 @@ class User(BaseModel, Base):
     """The User model"""
 
     __tablename__ = "users"
-    # created_by = Column(String(50), ForeignKey("users.id", ondelete='CASCADE'), nullable=True)
+    created_by = Column(String(50), ForeignKey("users.id", ondelete="CASCADE"))
     name = Column(String(50), nullable=False)
     handle = Column(String(20), nullable=False, unique=True)
     email = Column(String(50), nullable=False, unique=True)

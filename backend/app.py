@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from routes.places import place_router
 from routes.users import user_router
 
 """from models.db import LocalSession"""
@@ -11,6 +12,7 @@ from sqlalchemy.orm import Session
 
 app = FastAPI()
 app.include_router(user_router)
+app.include_router(place_router)
 
 
 app.add_middleware(
