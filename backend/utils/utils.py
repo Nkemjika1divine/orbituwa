@@ -25,14 +25,6 @@ def sort_dict_by_values(dictionary, reverse: bool = True):
     }
 
 
-def generate_token():
-    """Generates a randon 6 digit number and returns it"""
-    otp = ""
-    for i in range(6):
-        otp += str(random.randint(0, 9))
-    return otp
-
-
 def get_user_by_email(email: str):
     """Finds a user by the email address"""
     from db.reload import storage
@@ -41,5 +33,17 @@ def get_user_by_email(email: str):
     if users:
         for user in users.values():
             if user.email == email:
+                return user
+    return None
+
+
+def get_user_by_handle(handle: str):
+    """Finds a user by the handle"""
+    from db.reload import storage
+
+    users = storage.all("User")
+    if users:
+        for user in users.values():
+            if user.handle == handle:
                 return user
     return None

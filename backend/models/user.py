@@ -4,7 +4,6 @@ from models.basemodel import BaseModel, Base
 from bcrypt import hashpw, checkpw, gensalt
 from email.message import EmailMessage
 from sqlalchemy import Column, String, ForeignKey
-from utils.utils import generate_token
 import os
 import shutil
 import smtplib
@@ -50,8 +49,9 @@ class User(BaseModel, Base):
             return "{} (@{})".format(self.name, self.username)
 
     def generate_password_token(self, user_id: str = None) -> str:
+        ...
         """Generated a password token using uuid"""
-        from db.reload import storage
+        """from db.reload import storage
 
         if not user_id or type(user_id) is not str:
             return None
@@ -60,7 +60,7 @@ class User(BaseModel, Base):
             raise ValueError()
         token = generate_token()
         storage.update("User", user_id, reset_token=token)
-        return token
+        return token"""
 
     def update_password(self, token: str = None, password: str = None) -> None:
         """Updates a user's password"""
